@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAudioConv));
             this.labelHeader = new System.Windows.Forms.Label();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -50,9 +51,10 @@
             this.labelHeader.AutoSize = true;
             this.labelHeader.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelHeader.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.labelHeader.Location = new System.Drawing.Point(63, 9);
+            this.labelHeader.Location = new System.Drawing.Point(77, 11);
+            this.labelHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelHeader.Name = "labelHeader";
-            this.labelHeader.Size = new System.Drawing.Size(427, 32);
+            this.labelHeader.Size = new System.Drawing.Size(502, 38);
             this.labelHeader.TabIndex = 0;
             this.labelHeader.Text = "DROP AUDIO FILE ANYWHERE";
             this.labelHeader.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormAudioConv_DragDrop);
@@ -70,9 +72,11 @@
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteOld);
             this.groupBoxOptions.Controls.Add(this.checkBoxSamePath);
             this.groupBoxOptions.Controls.Add(this.labelPath);
-            this.groupBoxOptions.Location = new System.Drawing.Point(12, 257);
+            this.groupBoxOptions.Location = new System.Drawing.Point(15, 308);
+            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Size = new System.Drawing.Size(528, 211);
+            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxOptions.Size = new System.Drawing.Size(645, 253);
             this.groupBoxOptions.TabIndex = 1;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Export Options";
@@ -81,9 +85,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(401, 181);
+            this.checkBox1.Location = new System.Drawing.Point(490, 217);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(121, 24);
+            this.checkBox1.Size = new System.Drawing.Size(144, 29);
             this.checkBox1.TabIndex = 11;
             this.checkBox1.Text = "Transparent";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -91,8 +96,8 @@
             // 
             // numericUpDownBitrate
             // 
-            this.numericUpDownBitrate.Location = new System.Drawing.Point(401, 126);
-            this.numericUpDownBitrate.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.numericUpDownBitrate.Location = new System.Drawing.Point(490, 151);
+            this.numericUpDownBitrate.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.numericUpDownBitrate.Maximum = new decimal(new int[] {
             320,
             0,
@@ -104,7 +109,7 @@
             0,
             0});
             this.numericUpDownBitrate.Name = "numericUpDownBitrate";
-            this.numericUpDownBitrate.Size = new System.Drawing.Size(121, 26);
+            this.numericUpDownBitrate.Size = new System.Drawing.Size(148, 29);
             this.numericUpDownBitrate.TabIndex = 10;
             this.numericUpDownBitrate.Value = new decimal(new int[] {
             160,
@@ -115,10 +120,10 @@
             // labelBitrate
             // 
             this.labelBitrate.AutoSize = true;
-            this.labelBitrate.Location = new System.Drawing.Point(293, 128);
-            this.labelBitrate.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labelBitrate.Location = new System.Drawing.Point(358, 154);
+            this.labelBitrate.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelBitrate.Name = "labelBitrate";
-            this.labelBitrate.Size = new System.Drawing.Size(108, 20);
+            this.labelBitrate.Size = new System.Drawing.Size(134, 25);
             this.labelBitrate.TabIndex = 9;
             this.labelBitrate.Text = "Bitrate (kbps):";
             // 
@@ -137,20 +142,20 @@
             ".webm",
             ".mkv",
             ".mov"});
-            this.comboBoxContainer.Location = new System.Drawing.Point(88, 159);
-            this.comboBoxContainer.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.comboBoxContainer.Location = new System.Drawing.Point(108, 191);
+            this.comboBoxContainer.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxContainer.Name = "comboBoxContainer";
-            this.comboBoxContainer.Size = new System.Drawing.Size(121, 28);
+            this.comboBoxContainer.Size = new System.Drawing.Size(147, 32);
             this.comboBoxContainer.TabIndex = 8;
             this.comboBoxContainer.Text = ".ogg";
             // 
             // labelContainer
             // 
             this.labelContainer.AutoSize = true;
-            this.labelContainer.Location = new System.Drawing.Point(6, 162);
-            this.labelContainer.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labelContainer.Location = new System.Drawing.Point(7, 194);
+            this.labelContainer.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelContainer.Name = "labelContainer";
-            this.labelContainer.Size = new System.Drawing.Size(82, 20);
+            this.labelContainer.Size = new System.Drawing.Size(103, 25);
             this.labelContainer.TabIndex = 7;
             this.labelContainer.Text = "Container:";
             // 
@@ -164,10 +169,10 @@
             "Vorbis",
             "FLAC",
             "ALAC"});
-            this.comboBoxCodec.Location = new System.Drawing.Point(88, 125);
-            this.comboBoxCodec.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.comboBoxCodec.Location = new System.Drawing.Point(108, 150);
+            this.comboBoxCodec.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxCodec.Name = "comboBoxCodec";
-            this.comboBoxCodec.Size = new System.Drawing.Size(121, 28);
+            this.comboBoxCodec.Size = new System.Drawing.Size(147, 32);
             this.comboBoxCodec.TabIndex = 6;
             this.comboBoxCodec.Text = "Opus";
             this.comboBoxCodec.SelectedIndexChanged += new System.EventHandler(this.comboBoxCodec_SelectedIndexChanged);
@@ -175,10 +180,10 @@
             // labelCodec
             // 
             this.labelCodec.AutoSize = true;
-            this.labelCodec.Location = new System.Drawing.Point(29, 128);
-            this.labelCodec.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labelCodec.Location = new System.Drawing.Point(35, 154);
+            this.labelCodec.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelCodec.Name = "labelCodec";
-            this.labelCodec.Size = new System.Drawing.Size(59, 20);
+            this.labelCodec.Size = new System.Drawing.Size(76, 25);
             this.labelCodec.TabIndex = 4;
             this.labelCodec.Text = "Codec:";
             // 
@@ -186,10 +191,10 @@
             // 
             this.checkBoxDeleteOld.AutoSize = true;
             this.checkBoxDeleteOld.Enabled = false;
-            this.checkBoxDeleteOld.Location = new System.Drawing.Point(52, 71);
-            this.checkBoxDeleteOld.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.checkBoxDeleteOld.Location = new System.Drawing.Point(64, 85);
+            this.checkBoxDeleteOld.Margin = new System.Windows.Forms.Padding(0, 4, 0, 4);
             this.checkBoxDeleteOld.Name = "checkBoxDeleteOld";
-            this.checkBoxDeleteOld.Size = new System.Drawing.Size(131, 24);
+            this.checkBoxDeleteOld.Size = new System.Drawing.Size(154, 29);
             this.checkBoxDeleteOld.TabIndex = 3;
             this.checkBoxDeleteOld.Text = "Delete old file";
             this.checkBoxDeleteOld.UseVisualStyleBackColor = true;
@@ -200,10 +205,10 @@
             this.checkBoxSamePath.Checked = true;
             this.checkBoxSamePath.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxSamePath.Enabled = false;
-            this.checkBoxSamePath.Location = new System.Drawing.Point(52, 41);
-            this.checkBoxSamePath.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.checkBoxSamePath.Location = new System.Drawing.Point(64, 49);
+            this.checkBoxSamePath.Margin = new System.Windows.Forms.Padding(0, 4, 0, 4);
             this.checkBoxSamePath.Name = "checkBoxSamePath";
-            this.checkBoxSamePath.Size = new System.Drawing.Size(190, 24);
+            this.checkBoxSamePath.Size = new System.Drawing.Size(229, 29);
             this.checkBoxSamePath.TabIndex = 2;
             this.checkBoxSamePath.Text = "Same folder/file-name";
             this.checkBoxSamePath.UseVisualStyleBackColor = true;
@@ -211,10 +216,10 @@
             // labelPath
             // 
             this.labelPath.AutoSize = true;
-            this.labelPath.Location = new System.Drawing.Point(6, 42);
-            this.labelPath.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labelPath.Location = new System.Drawing.Point(7, 50);
+            this.labelPath.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(46, 20);
+            this.labelPath.Size = new System.Drawing.Size(58, 25);
             this.labelPath.TabIndex = 1;
             this.labelPath.Text = "Path:";
             // 
@@ -222,29 +227,31 @@
             // 
             this.textBoxStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxStatus.Enabled = false;
-            this.textBoxStatus.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStatus.Location = new System.Drawing.Point(203, 225);
+            this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxStatus.Location = new System.Drawing.Point(248, 270);
+            this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
-            this.textBoxStatus.Size = new System.Drawing.Size(147, 23);
+            this.textBoxStatus.Size = new System.Drawing.Size(180, 27);
             this.textBoxStatus.TabIndex = 2;
             this.textBoxStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FormAudioConv
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(552, 480);
+            this.ClientSize = new System.Drawing.Size(675, 576);
             this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.labelHeader);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "FormAudioConv";
-            this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "AudioConv";
             this.TopMost = true;

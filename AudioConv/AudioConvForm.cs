@@ -57,7 +57,7 @@ namespace AudioConv
                         
                         Process proc1 = new Process();
                         ProcessStartInfo psi1 = new ProcessStartInfo();
-                        psi1.FileName = @"C:\Users\Nick\Documents\Programs\qaac\qaac64.exe";
+                        psi1.FileName = @"qaac64.exe";
                         psi1.UseShellExecute = true;
                         psi1.CreateNoWindow = true;
                         psi1.ErrorDialog = false;
