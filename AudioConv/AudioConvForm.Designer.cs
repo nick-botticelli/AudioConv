@@ -1,4 +1,6 @@
-﻿namespace AudioConv
+﻿using System.Drawing;
+
+namespace AudioConv
 {
     partial class FormAudioConv
     {
@@ -31,7 +33,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAudioConv));
             this.labelHeader = new System.Windows.Forms.Label();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.buttonFfmpegCodecs = new System.Windows.Forms.Button();
+            this.comboBoxEncoder = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxTransparent = new System.Windows.Forms.CheckBox();
             this.numericUpDownBitrate = new System.Windows.Forms.NumericUpDown();
             this.labelBitrate = new System.Windows.Forms.Label();
             this.comboBoxContainer = new System.Windows.Forms.ComboBox();
@@ -62,7 +67,10 @@
             // 
             // groupBoxOptions
             // 
-            this.groupBoxOptions.Controls.Add(this.checkBox1);
+            this.groupBoxOptions.Controls.Add(this.buttonFfmpegCodecs);
+            this.groupBoxOptions.Controls.Add(this.comboBoxEncoder);
+            this.groupBoxOptions.Controls.Add(this.label1);
+            this.groupBoxOptions.Controls.Add(this.checkBoxTransparent);
             this.groupBoxOptions.Controls.Add(this.numericUpDownBitrate);
             this.groupBoxOptions.Controls.Add(this.labelBitrate);
             this.groupBoxOptions.Controls.Add(this.comboBoxContainer);
@@ -72,39 +80,75 @@
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteOld);
             this.groupBoxOptions.Controls.Add(this.checkBoxSamePath);
             this.groupBoxOptions.Controls.Add(this.labelPath);
-            this.groupBoxOptions.Location = new System.Drawing.Point(15, 308);
-            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxOptions.Location = new System.Drawing.Point(15, 288);
+            this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBoxOptions.Size = new System.Drawing.Size(645, 253);
+            this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxOptions.Size = new System.Drawing.Size(645, 273);
             this.groupBoxOptions.TabIndex = 1;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Export Options";
             this.groupBoxOptions.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormAudioConv_DragEnter);
             // 
-            // checkBox1
+            // buttonFfmpegCodecs
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(490, 217);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(144, 29);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Transparent";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.buttonFfmpegCodecs.Location = new System.Drawing.Point(262, 150);
+            this.buttonFfmpegCodecs.Name = "buttonFfmpegCodecs";
+            this.buttonFfmpegCodecs.Size = new System.Drawing.Size(167, 32);
+            this.buttonFfmpegCodecs.TabIndex = 14;
+            this.buttonFfmpegCodecs.Text = "FFmpeg codecs";
+            this.buttonFfmpegCodecs.UseVisualStyleBackColor = true;
+            this.buttonFfmpegCodecs.Click += new System.EventHandler(this.ButtonFfmpegCodecs_Click);
+            // 
+            // comboBoxEncoder
+            // 
+            this.comboBoxEncoder.FormattingEnabled = true;
+            this.comboBoxEncoder.Items.AddRange(new object[] {
+            "ffmpeg",
+            "qaac(64)",
+            "flac",
+            "opusenc",
+            "lame"});
+            this.comboBoxEncoder.Location = new System.Drawing.Point(108, 190);
+            this.comboBoxEncoder.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
+            this.comboBoxEncoder.Name = "comboBoxEncoder";
+            this.comboBoxEncoder.Size = new System.Drawing.Size(147, 32);
+            this.comboBoxEncoder.TabIndex = 13;
+            this.comboBoxEncoder.Text = "opusenc";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 193);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 25);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Encoder:";
+            // 
+            // checkBoxTransparent
+            // 
+            this.checkBoxTransparent.AutoSize = true;
+            this.checkBoxTransparent.Location = new System.Drawing.Point(493, 236);
+            this.checkBoxTransparent.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxTransparent.Name = "checkBoxTransparent";
+            this.checkBoxTransparent.Size = new System.Drawing.Size(144, 29);
+            this.checkBoxTransparent.TabIndex = 11;
+            this.checkBoxTransparent.Text = "Transparent";
+            this.checkBoxTransparent.UseVisualStyleBackColor = true;
+            this.checkBoxTransparent.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // numericUpDownBitrate
             // 
-            this.numericUpDownBitrate.Location = new System.Drawing.Point(490, 151);
+            this.numericUpDownBitrate.Location = new System.Drawing.Point(489, 191);
             this.numericUpDownBitrate.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.numericUpDownBitrate.Maximum = new decimal(new int[] {
-            320,
+            510,
             0,
             0,
             0});
             this.numericUpDownBitrate.Minimum = new decimal(new int[] {
-            4,
+            1,
             0,
             0,
             0});
@@ -112,7 +156,7 @@
             this.numericUpDownBitrate.Size = new System.Drawing.Size(148, 29);
             this.numericUpDownBitrate.TabIndex = 10;
             this.numericUpDownBitrate.Value = new decimal(new int[] {
-            160,
+            128,
             0,
             0,
             0});
@@ -120,7 +164,7 @@
             // labelBitrate
             // 
             this.labelBitrate.AutoSize = true;
-            this.labelBitrate.Location = new System.Drawing.Point(358, 154);
+            this.labelBitrate.Location = new System.Drawing.Point(355, 193);
             this.labelBitrate.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelBitrate.Name = "labelBitrate";
             this.labelBitrate.Size = new System.Drawing.Size(134, 25);
@@ -142,7 +186,7 @@
             ".webm",
             ".mkv",
             ".mov"});
-            this.comboBoxContainer.Location = new System.Drawing.Point(108, 191);
+            this.comboBoxContainer.Location = new System.Drawing.Point(108, 230);
             this.comboBoxContainer.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxContainer.Name = "comboBoxContainer";
             this.comboBoxContainer.Size = new System.Drawing.Size(147, 32);
@@ -152,7 +196,7 @@
             // labelContainer
             // 
             this.labelContainer.AutoSize = true;
-            this.labelContainer.Location = new System.Drawing.Point(7, 194);
+            this.labelContainer.Location = new System.Drawing.Point(7, 233);
             this.labelContainer.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelContainer.Name = "labelContainer";
             this.labelContainer.Size = new System.Drawing.Size(103, 25);
@@ -227,9 +271,9 @@
             // 
             this.textBoxStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxStatus.Enabled = false;
-            this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStatus.Location = new System.Drawing.Point(248, 270);
-            this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxStatus.Location = new System.Drawing.Point(247, 253);
+            this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.Size = new System.Drawing.Size(180, 27);
@@ -249,7 +293,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FormAudioConv";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -279,8 +323,11 @@
         private System.Windows.Forms.Label labelContainer;
         private System.Windows.Forms.NumericUpDown numericUpDownBitrate;
         private System.Windows.Forms.Label labelBitrate;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxTransparent;
         private System.Windows.Forms.TextBox textBoxStatus;
+        private System.Windows.Forms.ComboBox comboBoxEncoder;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonFfmpegCodecs;
     }
 }
 
