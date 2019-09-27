@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFfmpegCodecs));
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
             this.pictureBoxAlbumArt = new System.Windows.Forms.PictureBox();
             this.textBoxSearchQuery = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,6 +39,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(12, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -46,20 +47,22 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(242, 577);
             this.textBox1.TabIndex = 0;
+            this.textBox1.TabStop = false;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
-            // button1
+            // buttonTest
             // 
-            this.button1.Location = new System.Drawing.Point(541, 47);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(220, 35);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Test iTunes Request";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.buttonTest.Location = new System.Drawing.Point(541, 47);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(220, 35);
+            this.buttonTest.TabIndex = 1;
+            this.buttonTest.Text = "Test iTunes Request";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.Button1_Click);
             // 
             // pictureBoxAlbumArt
             // 
+            this.pictureBoxAlbumArt.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxAlbumArt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBoxAlbumArt.Location = new System.Drawing.Point(260, 88);
             this.pictureBoxAlbumArt.Name = "pictureBoxAlbumArt";
@@ -73,7 +76,7 @@
             this.textBoxSearchQuery.MaxLength = 127;
             this.textBoxSearchQuery.Name = "textBoxSearchQuery";
             this.textBoxSearchQuery.Size = new System.Drawing.Size(385, 29);
-            this.textBoxSearchQuery.TabIndex = 3;
+            this.textBoxSearchQuery.TabIndex = 0;
             // 
             // label1
             // 
@@ -86,13 +89,15 @@
             // 
             // FormFfmpegCodecs
             // 
+            this.AcceptButton = this.buttonTest;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(774, 601);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxSearchQuery);
             this.Controls.Add(this.pictureBoxAlbumArt);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -113,7 +118,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.PictureBox pictureBoxAlbumArt;
         private System.Windows.Forms.TextBox textBoxSearchQuery;
         private System.Windows.Forms.Label label1;

@@ -85,7 +85,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UtiliTunes.cs" />
+    <Compile Include="Util.cs" />
     <EmbeddedResource Include="AudioConvForm.resx">
       <DependentUpon>AudioConvForm.cs</DependentUpon>
     </EmbeddedResource>

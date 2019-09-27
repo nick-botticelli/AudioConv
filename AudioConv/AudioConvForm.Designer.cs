@@ -33,6 +33,9 @@ namespace AudioConv
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAudioConv));
             this.labelHeader = new System.Windows.Forms.Label();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxEncodeImage = new System.Windows.Forms.CheckBox();
+            this.labelThreadCount = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.buttonFfmpegCodecs = new System.Windows.Forms.Button();
             this.comboBoxEncoder = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,9 +57,10 @@ namespace AudioConv
             // labelHeader
             // 
             this.labelHeader.AutoSize = true;
+            this.labelHeader.BackColor = System.Drawing.Color.Transparent;
             this.labelHeader.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHeader.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.labelHeader.Location = new System.Drawing.Point(77, 11);
+            this.labelHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(133)))), ((int)(((byte)(244)))));
+            this.labelHeader.Location = new System.Drawing.Point(83, 9);
             this.labelHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelHeader.Name = "labelHeader";
             this.labelHeader.Size = new System.Drawing.Size(502, 38);
@@ -67,6 +71,10 @@ namespace AudioConv
             // 
             // groupBoxOptions
             // 
+            this.groupBoxOptions.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxOptions.Controls.Add(this.checkBoxEncodeImage);
+            this.groupBoxOptions.Controls.Add(this.labelThreadCount);
+            this.groupBoxOptions.Controls.Add(this.label2);
             this.groupBoxOptions.Controls.Add(this.buttonFfmpegCodecs);
             this.groupBoxOptions.Controls.Add(this.comboBoxEncoder);
             this.groupBoxOptions.Controls.Add(this.label1);
@@ -80,15 +88,48 @@ namespace AudioConv
             this.groupBoxOptions.Controls.Add(this.checkBoxDeleteOld);
             this.groupBoxOptions.Controls.Add(this.checkBoxSamePath);
             this.groupBoxOptions.Controls.Add(this.labelPath);
-            this.groupBoxOptions.Location = new System.Drawing.Point(15, 288);
+            this.groupBoxOptions.Location = new System.Drawing.Point(13, 259);
             this.groupBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxOptions.Size = new System.Drawing.Size(645, 273);
+            this.groupBoxOptions.Size = new System.Drawing.Size(643, 273);
             this.groupBoxOptions.TabIndex = 1;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Export Options";
             this.groupBoxOptions.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormAudioConv_DragEnter);
+            // 
+            // checkBoxEncodeImage
+            // 
+            this.checkBoxEncodeImage.AutoSize = true;
+            this.checkBoxEncodeImage.Checked = true;
+            this.checkBoxEncodeImage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEncodeImage.Location = new System.Drawing.Point(411, 85);
+            this.checkBoxEncodeImage.Name = "checkBoxEncodeImage";
+            this.checkBoxEncodeImage.Size = new System.Drawing.Size(184, 29);
+            this.checkBoxEncodeImage.TabIndex = 17;
+            this.checkBoxEncodeImage.Text = "mozjpeg Encode";
+            this.checkBoxEncodeImage.UseVisualStyleBackColor = true;
+            // 
+            // labelThreadCount
+            // 
+            this.labelThreadCount.AutoSize = true;
+            this.labelThreadCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(133)))), ((int)(((byte)(244)))));
+            this.labelThreadCount.Location = new System.Drawing.Point(566, 26);
+            this.labelThreadCount.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelThreadCount.Name = "labelThreadCount";
+            this.labelThreadCount.Size = new System.Drawing.Size(23, 25);
+            this.labelThreadCount.TabIndex = 16;
+            this.labelThreadCount.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(406, 26);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(160, 25);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Running threads:";
             // 
             // buttonFfmpegCodecs
             // 
@@ -102,6 +143,7 @@ namespace AudioConv
             // 
             // comboBoxEncoder
             // 
+            this.comboBoxEncoder.BackColor = System.Drawing.Color.White;
             this.comboBoxEncoder.FormattingEnabled = true;
             this.comboBoxEncoder.Items.AddRange(new object[] {
             "ffmpeg",
@@ -129,7 +171,7 @@ namespace AudioConv
             // checkBoxTransparent
             // 
             this.checkBoxTransparent.AutoSize = true;
-            this.checkBoxTransparent.Location = new System.Drawing.Point(493, 236);
+            this.checkBoxTransparent.Location = new System.Drawing.Point(491, 236);
             this.checkBoxTransparent.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTransparent.Name = "checkBoxTransparent";
             this.checkBoxTransparent.Size = new System.Drawing.Size(144, 29);
@@ -140,7 +182,8 @@ namespace AudioConv
             // 
             // numericUpDownBitrate
             // 
-            this.numericUpDownBitrate.Location = new System.Drawing.Point(489, 191);
+            this.numericUpDownBitrate.BackColor = System.Drawing.Color.White;
+            this.numericUpDownBitrate.Location = new System.Drawing.Point(487, 191);
             this.numericUpDownBitrate.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.numericUpDownBitrate.Maximum = new decimal(new int[] {
             510,
@@ -164,7 +207,7 @@ namespace AudioConv
             // labelBitrate
             // 
             this.labelBitrate.AutoSize = true;
-            this.labelBitrate.Location = new System.Drawing.Point(355, 193);
+            this.labelBitrate.Location = new System.Drawing.Point(353, 193);
             this.labelBitrate.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.labelBitrate.Name = "labelBitrate";
             this.labelBitrate.Size = new System.Drawing.Size(134, 25);
@@ -173,6 +216,7 @@ namespace AudioConv
             // 
             // comboBoxContainer
             // 
+            this.comboBoxContainer.BackColor = System.Drawing.Color.White;
             this.comboBoxContainer.FormattingEnabled = true;
             this.comboBoxContainer.Items.AddRange(new object[] {
             ".m4a",
@@ -205,6 +249,7 @@ namespace AudioConv
             // 
             // comboBoxCodec
             // 
+            this.comboBoxCodec.BackColor = System.Drawing.Color.White;
             this.comboBoxCodec.FormattingEnabled = true;
             this.comboBoxCodec.Items.AddRange(new object[] {
             "AAC (qaac64)",
@@ -269,10 +314,11 @@ namespace AudioConv
             // 
             // textBoxStatus
             // 
+            this.textBoxStatus.BackColor = System.Drawing.Color.White;
             this.textBoxStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStatus.Location = new System.Drawing.Point(247, 253);
+            this.textBoxStatus.Location = new System.Drawing.Point(244, 224);
             this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
@@ -286,12 +332,11 @@ namespace AudioConv
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(675, 576);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(669, 545);
             this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.labelHeader);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -328,6 +373,9 @@ namespace AudioConv
         private System.Windows.Forms.ComboBox comboBoxEncoder;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonFfmpegCodecs;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelThreadCount;
+        private System.Windows.Forms.CheckBox checkBoxEncodeImage;
     }
 }
 

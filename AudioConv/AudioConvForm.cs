@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AudioConv
 {
     public partial class FormAudioConv : Form
     {
-        Random rand;
+        Random random;
+        private int threadCount;
 
         public FormAudioConv()
         {
@@ -18,7 +18,8 @@ namespace AudioConv
 
         private void FormAudioConv_Load(object sender, EventArgs e)
         {
-            rand = new Random();
+            random = new Random();
+            threadCount = 0;
         }
 
         private void FormAudioConv_DragEnter(object sender, DragEventArgs e)
@@ -44,52 +45,20 @@ namespace AudioConv
         {
             textBoxStatus.Text = "Converting...";
 
+            string encoder = comboBoxEncoder.Text;
+            string codec = comboBoxCodec.Text;
+            string container = comboBoxContainer.Text;
+            int bitrate = (int) numericUpDownBitrate.Value;
+            bool encodeImage = checkBoxEncodeImage.Checked;
+
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
             {
                 foreach (string file in files)
                 {
-                    StartEncoder(comboBoxEncoder.Text, file);
+                    StartEncoder(encoder, file, codec, container, bitrate, encodeImage);
 
-                    /*if (comboBoxCodec.Text.Equals("AAC (qaac64)"))
-                    {
-                        //MessageBox.Show("Is AAC!\n\n" + file + "\n\n" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text);
-
-                        var enviromentPath = Environment.GetEnvironmentVariable("PATH");
-                        
-                        Process proc1 = new Process();
-                        ProcessStartInfo psi1 = new ProcessStartInfo();
-                        psi1.FileName = @"qaac64.exe";
-                        psi1.UseShellExecute = true;
-                        psi1.CreateNoWindow = true;
-                        psi1.ErrorDialog = false;
-                        psi1.WindowStyle = ProcessWindowStyle.Hidden;
-                        psi1.Arguments = "-q 2 -v " + (int)numericUpDownBitrate.Value + " -o \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text + "\" \"" + file + "\"";
-                        proc1.StartInfo = psi1;
-
-                        proc1.Start();
-
-                        textBoxStatus.ForeColor = Color.FromArgb((int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250));
-                    }
-                    else if (comboBoxCodec.Text.Equals("Opus"))
-                    {
-                        var enviromentPath = Environment.GetEnvironmentVariable("PATH");
-
-                        Process proc1 = new Process();
-                        ProcessStartInfo psi1 = new ProcessStartInfo();
-                        psi1.FileName = @"opusenc.exe";
-                        psi1.UseShellExecute = true;
-                        psi1.CreateNoWindow = true;
-                        psi1.ErrorDialog = false;
-                        psi1.WindowStyle = ProcessWindowStyle.Hidden;
-                        psi1.Arguments = "--bitrate " + (int)numericUpDownBitrate.Value + " \"" + file + "\" \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text + "\"";
-                        proc1.StartInfo = psi1;
-
-                        proc1.Start();
-
-                        textBoxStatus.ForeColor = Color.FromArgb((int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250));
-                    }
-                    else
+                    /*else
                     {
                         MessageBox.Show("Not AAC!\n\n" + file + "\n\n" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text);
 
@@ -120,9 +89,11 @@ namespace AudioConv
             textBoxStatus.Text = "Done!";
         }
 
-        public bool StartEncoder(string proc, string file)
+        public void StartEncoder(string proc, string file, string codec, string container, int bitrate, bool encodeImage)
         {
-            var enviromentPath = Environment.GetEnvironmentVariable("PATH");
+            /*labelThreadCount.Text = "" + ++threadCount;
+
+            //string enviromentPath = Environment.GetEnvironmentVariable("PATH");
 
             Process proc1 = new Process();
             ProcessStartInfo psi1 = new ProcessStartInfo();
@@ -131,30 +102,61 @@ namespace AudioConv
             psi1.CreateNoWindow = true;
             psi1.ErrorDialog = false;
             psi1.WindowStyle = ProcessWindowStyle.Hidden;
-            psi1.Arguments = GenerateArgs(proc, file);
+            psi1.Arguments = GenerateArgs(proc, file, codec, container, bitrate);
             proc1.StartInfo = psi1;
+            proc1.Start();
+            proc1.WaitForExit();
 
-            textBoxStatus.ForeColor = Color.FromArgb((int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250));
+            labelThreadCount.Text = "" + --threadCount;*/
 
-            return proc1.Start();
+            // TODO: Fix asynchronous encoding
+            Thread thread = new Thread(() =>
+            {
+                // Interact with UI thread
+                this.BeginInvoke(new Action(() =>
+                {
+                    labelThreadCount.Text = "" + ++threadCount;
+                }));
+
+                //string enviromentPath = Environment.GetEnvironmentVariable("PATH");
+
+                Process proc1 = new Process();
+                ProcessStartInfo psi1 = new ProcessStartInfo();
+                psi1.FileName = @proc;
+                psi1.UseShellExecute = true;
+                psi1.CreateNoWindow = true;
+                psi1.ErrorDialog = false;
+                psi1.WindowStyle = ProcessWindowStyle.Hidden;
+                psi1.Arguments = GenerateArgs(proc, file, codec, container, bitrate, encodeImage);
+                proc1.StartInfo = psi1;
+                proc1.Start();
+                proc1.WaitForExit();
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    labelThreadCount.Text = "" + --threadCount;
+                }));
+            });
+
+            thread.IsBackground = true;
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
-        private string GenerateArgs(string encoder, string file)
+        private string GenerateArgs(string encoder, string file, string codec, string container, int bitrate, bool encodeImage)
         {
-            switch (encoder)
+            switch (encoder.ToLower().Trim())
             {
                 case "qaac":
-                    return "-q 2 - v " + (int)numericUpDownBitrate.Value + " - o \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text + "\" \"" + file + "\"";
+                    return "-q 2 - v " + bitrate + " - o \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + container + "\" \"" + file + "\"";
                 case "opusenc":
-                    return "--bitrate " + (int)numericUpDownBitrate.Value + " \"" + file + "\" \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text + "\"";
-            }
+                    Util.AudioMetadata metadata = Util.GetAlbum(file);
+                    string filePath = Util.SearchImageFile(Util.ImageRepo.Apple, metadata.artist + " " + metadata.album, encodeImage);
 
-            // FFmpeg
-
-            switch (comboBoxCodec.Text.Substring(0, encoder.IndexOf('(')).ToLower().Trim())
-            {
-                case "opus":
-                    return "-c:a libopus";
+                    return "--bitrate " + bitrate + " \"" + file + "\" \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + container + "\""
+                        + " --padding 0 --discard-pictures --picture \"" + filePath + "\"";
+                case "ffmpeg":
+                    return "-c:a " + codec + " -b:a " + bitrate + "k " + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + container;
             }
 
             return "";
@@ -163,6 +165,11 @@ namespace AudioConv
         private void ButtonFfmpegCodecs_Click(object sender, EventArgs e)
         {
             new FormFfmpegCodecs().Show();
+        }
+
+        private void ButtonInfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AudioConv
         private void Button1_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(UtiliTunes.SearchImageFile(UtiliTunes.ImageRepo.Apple, "CLC - Devil"));
-            pictureBoxAlbumArt.Image = UtiliTunes.SearchImageFile(UtiliTunes.ImageRepo.Apple, textBoxSearchQuery.Text);
+            pictureBoxAlbumArt.Image = Util.SearchImage(Util.ImageRepo.Apple, textBoxSearchQuery.Text, false);
         }
     }
 }
