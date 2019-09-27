@@ -318,11 +318,11 @@ namespace AudioConv
             this.textBoxStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStatus.Location = new System.Drawing.Point(244, 224);
+            this.textBoxStatus.Location = new System.Drawing.Point(13, 224);
             this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
-            this.textBoxStatus.Size = new System.Drawing.Size(180, 27);
+            this.textBoxStatus.Size = new System.Drawing.Size(643, 27);
             this.textBoxStatus.TabIndex = 2;
             this.textBoxStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -337,6 +337,7 @@ namespace AudioConv
             this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.labelHeader);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -344,6 +345,7 @@ namespace AudioConv
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "AudioConv";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormAudioConv_FormClosed);
             this.Load += new System.EventHandler(this.FormAudioConv_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormAudioConv_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormAudioConv_DragEnter);

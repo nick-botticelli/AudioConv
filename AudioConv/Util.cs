@@ -11,6 +11,7 @@ namespace AudioConv
 {
     public class Util
     {
+        public static readonly string TEMP_PATH = Path.GetTempPath() + "AudioConv" + Path.DirectorySeparatorChar;
         private static readonly int RESIZE_THRESHOLD = 1250;
 
         private static WebRequest request;
@@ -31,9 +32,8 @@ namespace AudioConv
             if (cachePath != null && cachePath.Length > 0)
                 return cachePath;
 
-            string temp = Path.GetTempPath() + "AudioConv" + Path.DirectorySeparatorChar;
             if (!Directory.Exists(Path.GetTempPath() + "AudioConv"))
-                Directory.CreateDirectory(temp);
+                Directory.CreateDirectory(TEMP_PATH);
 
             Bitmap bitmap = null;
             string filePath = "";
@@ -41,7 +41,7 @@ namespace AudioConv
             {
                 case ImageRepo.Apple:
                     bitmap = SearchApple(searchQuery);
-                    filePath = temp + Path.DirectorySeparatorChar + Guid.NewGuid().ToString() + ".png"; // Generate unique name
+                    filePath = TEMP_PATH + Path.DirectorySeparatorChar + Guid.NewGuid().ToString() + ".png"; // Generate unique name
                     bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                     try { artCache.Add(searchQuery, filePath); } catch (Exception ignored) { } // Fix threading crash
                     break;
@@ -57,7 +57,7 @@ namespace AudioConv
                 psi1.CreateNoWindow = true;
                 psi1.ErrorDialog = false;
                 psi1.WindowStyle = ProcessWindowStyle.Hidden;
-                psi1.Arguments = "-i \"" + filePath + "\" " + (Math.Min(bitmap.Width, bitmap.Height) > RESIZE_THRESHOLD ? "-vf scale=1000:-1 -sws_flags lanczos+full_chroma_inp+full_chroma_int+accurate_rnd " : "") + "\"" + temp + Path.GetFileNameWithoutExtension(filePath) + ".tga\"";
+                psi1.Arguments = "-i \"" + filePath + "\" " + (Math.Min(bitmap.Width, bitmap.Height) > RESIZE_THRESHOLD ? "-vf scale=1000:-1 -sws_flags lanczos+full_chroma_inp+full_chroma_int+accurate_rnd " : "") + "\"" + TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".tga\"";
                 proc1.StartInfo = psi1;
                 proc1.Start();
                 proc1.WaitForExit();
@@ -73,21 +73,19 @@ namespace AudioConv
                 psi2.CreateNoWindow = true;
                 psi2.ErrorDialog = false;
                 psi2.WindowStyle = ProcessWindowStyle.Hidden;
-                psi2.Arguments = "-q 80 -outfile \"" + temp + Path.GetFileNameWithoutExtension(filePath) + ".jpg\" \"" + temp + Path.GetFileNameWithoutExtension(filePath) + ".tga\"";
+                psi2.Arguments = "-q 80 -outfile \"" + TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".jpg\" \"" + TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".tga\"";
                 proc2.StartInfo = psi2;
                 proc2.Start();
                 proc2.WaitForExit();
 
                 // Delete Targa encode
-                File.Delete(temp + Path.GetFileNameWithoutExtension(filePath) + ".tga");
+                File.Delete(TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".tga");
 
                 artCache.Remove(searchQuery);
-                artCache.Add(searchQuery, temp + Path.GetFileNameWithoutExtension(filePath) + ".jpg");
+                artCache.Add(searchQuery, TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".jpg");
 
-                return temp + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
+                return TEMP_PATH + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
             }
-
-            bitmap = null;
 
             return filePath;
         }
@@ -185,7 +183,10 @@ namespace AudioConv
 
             string artist = result["ARTIST"], album = result["ALBUM"];
 
-            return new AudioMetadata(artist, result["TITLE"], album);
+            AudioMetadata metadata = new AudioMetadata(artist, result["TITLE"], album);
+            metadata.albumArtist = result["album_artist"];
+
+            return metadata;
         }
 
         public class AudioMetadata
@@ -198,6 +199,7 @@ namespace AudioConv
             public AudioMetadata(string artist, string title, string album)
             {
                 this.artist = artist;
+                this.albumArtist = artist;
                 this.title = title;
                 this.album = album;
             }

@@ -54,12 +54,22 @@ namespace AudioConv
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
             {
-                bool firstRun = false;
-                foreach (string file in files)
+                // Central thread for launching other threads!
+                // Should keep UI thread open, for even more drops!
+                // Which means more central threads to spawn even more threads!
+                Thread thread = new Thread(() =>
                 {
-                    StartEncoder(encoder, file, codec, container, bitrate, encodeImage, firstRun);
-                    firstRun = true;
-                }
+                    bool async = false;
+                    foreach (string file in files)
+                    {
+                        StartEncoder(encoder, file, codec, container, bitrate, encodeImage, async);
+                        async = true;
+                    }
+                });
+
+                thread.IsBackground = true;
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
             }
 
             textBoxStatus.Text = "Done starting threads.";
@@ -104,6 +114,8 @@ namespace AudioConv
             proc1.Start();
             proc1.WaitForExit();
 
+            GC.Collect(); // Clean up garbage like album art
+
             this.BeginInvoke(new Action(() =>
             {
                 labelThreadCount.Text = "" + --threadCount;
@@ -118,7 +130,7 @@ namespace AudioConv
                     return "-q 2 - v " + bitrate + " - o \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + container + "\" \"" + file + "\"";
                 case "opusenc":
                     Util.AudioMetadata metadata = Util.GetAlbum(file);
-                    string filePath = Util.SearchImageFile(Util.ImageRepo.Apple, metadata.artist + " " + metadata.album, encodeImage);
+                    string filePath = Util.SearchImageFile(Util.ImageRepo.Apple, metadata.albumArtist + " " + metadata.album, encodeImage);
 
                     return "--bitrate " + bitrate + " \"" + file + "\" \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + container + "\""
                         + " --padding 0 --discard-pictures --picture \"" + filePath + "\"";
@@ -132,6 +144,12 @@ namespace AudioConv
         private void ButtonFfmpegCodecs_Click(object sender, EventArgs e)
         {
             new FormFfmpegCodecs().Show();
+        }
+
+        private void FormAudioConv_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Directory.Exists(Util.TEMP_PATH))
+                try { Directory.Delete(Util.TEMP_PATH, true); } catch (Exception ignored) { } // Clean up files since cache is lost on program exit
         }
     }
 }
