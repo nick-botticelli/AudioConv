@@ -43,7 +43,7 @@ namespace AudioConv
 
         private void FormAudioConv_DragDrop(object sender, DragEventArgs e)
         {
-            textBoxStatus.Text = "Converting...";
+            textBoxStatus.Text = "Starting threads...";
 
             string encoder = comboBoxEncoder.Text;
             string codec = comboBoxCodec.Text;
@@ -54,46 +54,43 @@ namespace AudioConv
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
             {
+                bool firstRun = false;
                 foreach (string file in files)
                 {
-                    StartEncoder(encoder, file, codec, container, bitrate, encodeImage);
-
-                    /*else
-                    {
-                        MessageBox.Show("Not AAC!\n\n" + file + "\n\n" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text);
-
-                        Process proc = new Process();
-                        ProcessStartInfo psi = new ProcessStartInfo();
-                        psi.FileName = "ffmpeg.exe";
-                        //psi.CreateNoWindow = true;
-                        //psi.ErrorDialog = false;
-                        //psi.WindowStyle = ProcessWindowStyle.Hidden;
-                        psi.Arguments = "-i \"" + file + "\" ";
-                        if (comboBoxContainer.Text == ".flac" || comboBoxContainer.Text == ".alac" || comboBoxContainer.Text == ".aiff" || comboBoxContainer.Text == ".wav")
-                            if (Path.GetExtension(file) == ".flac" || Path.GetExtension(file) == ".alac" || Path.GetExtension(file) == ".aiff" || Path.GetExtension(file) == ".wav")
-                                psi.Arguments += "-c copy ";
-                            else { }
-                        else
-                            psi.Arguments += "-b:a " + (int)numericUpDownBitrate.Value;
-                        psi.Arguments += "-c:a " + comboBoxCodec.Text + "k \"" + Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + comboBoxContainer.Text + "\"";
-
-                        proc.StartInfo = psi;
-
-                        proc.Start();
-
-                        textBoxStatus.ForeColor = Color.FromArgb((int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250), (int)(rand.NextDouble() * 250));
-                    }*/
+                    StartEncoder(encoder, file, codec, container, bitrate, encodeImage, firstRun);
+                    firstRun = true;
                 }
             }
 
-            textBoxStatus.Text = "Done!";
+            textBoxStatus.Text = "Done starting threads.";
         }
 
-        public void StartEncoder(string proc, string file, string codec, string container, int bitrate, bool encodeImage)
+        public void StartEncoder(string proc, string file, string codec, string container, int bitrate, bool encodeImage, bool threaded)
         {
-            /*labelThreadCount.Text = "" + ++threadCount;
+            if (threaded)
+            {
+                Thread thread = new Thread(() =>
+                {
+                    StartEncoderLogic(proc, file, codec, container, bitrate, encodeImage);
+                });
 
-            //string enviromentPath = Environment.GetEnvironmentVariable("PATH");
+                thread.IsBackground = true;
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+            }
+            else
+            {
+                StartEncoderLogic(proc, file, codec, container, bitrate, encodeImage);
+            }
+        }
+
+        private void StartEncoderLogic(string proc, string file, string codec, string container, int bitrate, bool encodeImage)
+        {
+            // Interact with UI thread
+            this.BeginInvoke(new Action(() =>
+            {
+                labelThreadCount.Text = "" + ++threadCount;
+            }));
 
             Process proc1 = new Process();
             ProcessStartInfo psi1 = new ProcessStartInfo();
@@ -102,45 +99,15 @@ namespace AudioConv
             psi1.CreateNoWindow = true;
             psi1.ErrorDialog = false;
             psi1.WindowStyle = ProcessWindowStyle.Hidden;
-            psi1.Arguments = GenerateArgs(proc, file, codec, container, bitrate);
+            psi1.Arguments = GenerateArgs(proc, file, codec, container, bitrate, encodeImage);
             proc1.StartInfo = psi1;
             proc1.Start();
             proc1.WaitForExit();
 
-            labelThreadCount.Text = "" + --threadCount;*/
-
-            // TODO: Fix asynchronous encoding
-            Thread thread = new Thread(() =>
+            this.BeginInvoke(new Action(() =>
             {
-                // Interact with UI thread
-                this.BeginInvoke(new Action(() =>
-                {
-                    labelThreadCount.Text = "" + ++threadCount;
-                }));
-
-                //string enviromentPath = Environment.GetEnvironmentVariable("PATH");
-
-                Process proc1 = new Process();
-                ProcessStartInfo psi1 = new ProcessStartInfo();
-                psi1.FileName = @proc;
-                psi1.UseShellExecute = true;
-                psi1.CreateNoWindow = true;
-                psi1.ErrorDialog = false;
-                psi1.WindowStyle = ProcessWindowStyle.Hidden;
-                psi1.Arguments = GenerateArgs(proc, file, codec, container, bitrate, encodeImage);
-                proc1.StartInfo = psi1;
-                proc1.Start();
-                proc1.WaitForExit();
-
-                this.BeginInvoke(new Action(() =>
-                {
-                    labelThreadCount.Text = "" + --threadCount;
-                }));
-            });
-
-            thread.IsBackground = true;
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+                labelThreadCount.Text = "" + --threadCount;
+            }));
         }
 
         private string GenerateArgs(string encoder, string file, string codec, string container, int bitrate, bool encodeImage)
@@ -165,11 +132,6 @@ namespace AudioConv
         private void ButtonFfmpegCodecs_Click(object sender, EventArgs e)
         {
             new FormFfmpegCodecs().Show();
-        }
-
-        private void ButtonInfo_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

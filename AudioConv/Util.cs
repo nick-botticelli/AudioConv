@@ -43,7 +43,7 @@ namespace AudioConv
                     bitmap = SearchApple(searchQuery);
                     filePath = temp + Path.DirectorySeparatorChar + Guid.NewGuid().ToString() + ".png"; // Generate unique name
                     bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-                    artCache.Add(searchQuery, filePath);
+                    try { artCache.Add(searchQuery, filePath); } catch (Exception ignored) { } // Fix threading crash
                     break;
             }
 
@@ -86,6 +86,8 @@ namespace AudioConv
 
                 return temp + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
             }
+
+            bitmap = null;
 
             return filePath;
         }
