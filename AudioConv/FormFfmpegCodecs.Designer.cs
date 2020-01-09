@@ -40,21 +40,23 @@
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Location = new System.Drawing.Point(7, 7);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(242, 577);
+            this.textBox1.Size = new System.Drawing.Size(134, 314);
             this.textBox1.TabIndex = 0;
             this.textBox1.TabStop = false;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(541, 47);
+            this.buttonTest.Location = new System.Drawing.Point(295, 25);
+            this.buttonTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(220, 35);
+            this.buttonTest.Size = new System.Drawing.Size(120, 19);
             this.buttonTest.TabIndex = 1;
             this.buttonTest.Text = "Test iTunes Request";
             this.buttonTest.UseVisualStyleBackColor = true;
@@ -63,43 +65,48 @@
             // pictureBoxAlbumArt
             // 
             this.pictureBoxAlbumArt.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxAlbumArt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxAlbumArt.Location = new System.Drawing.Point(260, 88);
+            this.pictureBoxAlbumArt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBoxAlbumArt.Location = new System.Drawing.Point(142, 48);
+            this.pictureBoxAlbumArt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBoxAlbumArt.Name = "pictureBoxAlbumArt";
-            this.pictureBoxAlbumArt.Size = new System.Drawing.Size(501, 501);
+            this.pictureBoxAlbumArt.Size = new System.Drawing.Size(273, 271);
+            this.pictureBoxAlbumArt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxAlbumArt.TabIndex = 2;
             this.pictureBoxAlbumArt.TabStop = false;
             // 
             // textBoxSearchQuery
             // 
-            this.textBoxSearchQuery.Location = new System.Drawing.Point(376, 12);
+            this.textBoxSearchQuery.Location = new System.Drawing.Point(205, 7);
+            this.textBoxSearchQuery.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxSearchQuery.MaxLength = 127;
             this.textBoxSearchQuery.Name = "textBoxSearchQuery";
-            this.textBoxSearchQuery.Size = new System.Drawing.Size(385, 29);
+            this.textBoxSearchQuery.Size = new System.Drawing.Size(212, 20);
             this.textBoxSearchQuery.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(262, 13);
+            this.label1.Location = new System.Drawing.Point(143, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 25);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Album title:";
             // 
             // FormFfmpegCodecs
             // 
             this.AcceptButton = this.buttonTest;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(774, 601);
+            this.ClientSize = new System.Drawing.Size(422, 326);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxSearchQuery);
             this.Controls.Add(this.pictureBoxAlbumArt);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormFfmpegCodecs";
