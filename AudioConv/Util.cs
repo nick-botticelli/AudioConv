@@ -41,6 +41,7 @@ namespace AudioConv
             {
                 case ImageRepo.Apple:
                     bitmap = SearchApple(searchQuery);
+                    if (bitmap == null) return null;
                     filePath = TEMP_PATH + Path.DirectorySeparatorChar + Guid.NewGuid().ToString() + ".png"; // Generate unique name
                     bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                     try { artCache.Add(searchQuery, filePath); } catch (Exception ignored) { } // Fix threading crash
@@ -120,36 +121,25 @@ namespace AudioConv
 
             response.Close();
 
-            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            dynamic dobj = jsonSerializer.Deserialize<dynamic>(sb.ToString());
-            string result = dobj["results"][0]["artworkUrl100"].ToString().Replace("100x100bb.jpg", "99999x99999-999.jpg");
+            Bitmap bitmap = null;
+            try
+            {
+                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                dynamic dobj = jsonSerializer.Deserialize<dynamic>(sb.ToString());
 
-            WebClient client = new WebClient();
-            Stream stream = client.OpenRead(result);
-            Bitmap bitmap = new Bitmap(stream);
+                string result = dobj["results"][0]["artworkUrl100"].ToString().Replace("100x100bb.jpg", "99999x99999-999.jpg");
 
-            stream.Flush();
-            stream.Close();
-            client.Dispose();
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead(result);
+                bitmap = new Bitmap(stream);
+
+                stream.Flush();
+                stream.Close();
+                client.Dispose();
+            }
+            catch (Exception ignored) { }
 
             return bitmap;
-        }
-
-        static void DoWithResponse(HttpWebRequest request, Action<HttpWebResponse> responseAction)
-        {
-            Action wrapperAction = () =>
-            {
-                request.BeginGetResponse(new AsyncCallback((iar) =>
-                {
-                    var response = (HttpWebResponse)((HttpWebRequest)iar.AsyncState).EndGetResponse(iar);
-                    responseAction(response);
-                }), request);
-            };
-            wrapperAction.BeginInvoke(new AsyncCallback((iar) =>
-            {
-                var action = (Action)iar.AsyncState;
-                action.EndInvoke(iar);
-            }), wrapperAction);
         }
 
         public static AudioMetadata GetAlbum(string audioFile)
@@ -183,6 +173,7 @@ namespace AudioConv
 
             string artist = result["ARTIST"], album = result["ALBUM"];
 
+            string tnum = "", tracks = "", isrc = "", qdur = "";
             AudioMetadata metadata = new AudioMetadata(artist, result["TITLE"], album);
             metadata.albumArtist = result["album_artist"];
 

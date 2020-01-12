@@ -106,7 +106,7 @@ namespace AudioConv
             this.checkBoxEncodeImage.Location = new System.Drawing.Point(411, 85);
             this.checkBoxEncodeImage.Name = "checkBoxEncodeImage";
             this.checkBoxEncodeImage.Size = new System.Drawing.Size(184, 29);
-            this.checkBoxEncodeImage.TabIndex = 17;
+            this.checkBoxEncodeImage.TabIndex = 40;
             this.checkBoxEncodeImage.Text = "mozjpeg Encode";
             this.checkBoxEncodeImage.UseVisualStyleBackColor = true;
             // 
@@ -136,7 +136,7 @@ namespace AudioConv
             this.buttonFfmpegCodecs.Location = new System.Drawing.Point(262, 150);
             this.buttonFfmpegCodecs.Name = "buttonFfmpegCodecs";
             this.buttonFfmpegCodecs.Size = new System.Drawing.Size(167, 32);
-            this.buttonFfmpegCodecs.TabIndex = 14;
+            this.buttonFfmpegCodecs.TabIndex = 20;
             this.buttonFfmpegCodecs.Text = "FFmpeg codecs";
             this.buttonFfmpegCodecs.UseVisualStyleBackColor = true;
             this.buttonFfmpegCodecs.Click += new System.EventHandler(this.ButtonFfmpegCodecs_Click);
@@ -147,7 +147,7 @@ namespace AudioConv
             this.comboBoxEncoder.FormattingEnabled = true;
             this.comboBoxEncoder.Items.AddRange(new object[] {
             "ffmpeg",
-            "qaac(64)",
+            "qaac64",
             "flac",
             "opusenc",
             "lame"});
@@ -155,7 +155,7 @@ namespace AudioConv
             this.comboBoxEncoder.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxEncoder.Name = "comboBoxEncoder";
             this.comboBoxEncoder.Size = new System.Drawing.Size(147, 32);
-            this.comboBoxEncoder.TabIndex = 13;
+            this.comboBoxEncoder.TabIndex = 10;
             this.comboBoxEncoder.Text = "opusenc";
             // 
             // label1
@@ -175,7 +175,7 @@ namespace AudioConv
             this.checkBoxTransparent.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTransparent.Name = "checkBoxTransparent";
             this.checkBoxTransparent.Size = new System.Drawing.Size(144, 29);
-            this.checkBoxTransparent.TabIndex = 11;
+            this.checkBoxTransparent.TabIndex = 45;
             this.checkBoxTransparent.Text = "Transparent";
             this.checkBoxTransparent.UseVisualStyleBackColor = true;
             this.checkBoxTransparent.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -197,7 +197,7 @@ namespace AudioConv
             0});
             this.numericUpDownBitrate.Name = "numericUpDownBitrate";
             this.numericUpDownBitrate.Size = new System.Drawing.Size(148, 29);
-            this.numericUpDownBitrate.TabIndex = 10;
+            this.numericUpDownBitrate.TabIndex = 25;
             this.numericUpDownBitrate.Value = new decimal(new int[] {
             128,
             0,
@@ -234,7 +234,7 @@ namespace AudioConv
             this.comboBoxContainer.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxContainer.Name = "comboBoxContainer";
             this.comboBoxContainer.Size = new System.Drawing.Size(147, 32);
-            this.comboBoxContainer.TabIndex = 8;
+            this.comboBoxContainer.TabIndex = 15;
             this.comboBoxContainer.Text = ".ogg";
             // 
             // labelContainer
@@ -262,7 +262,7 @@ namespace AudioConv
             this.comboBoxCodec.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.comboBoxCodec.Name = "comboBoxCodec";
             this.comboBoxCodec.Size = new System.Drawing.Size(147, 32);
-            this.comboBoxCodec.TabIndex = 6;
+            this.comboBoxCodec.TabIndex = 5;
             this.comboBoxCodec.Text = "Opus";
             this.comboBoxCodec.SelectedIndexChanged += new System.EventHandler(this.comboBoxCodec_SelectedIndexChanged);
             // 
@@ -284,7 +284,7 @@ namespace AudioConv
             this.checkBoxDeleteOld.Margin = new System.Windows.Forms.Padding(0, 4, 0, 4);
             this.checkBoxDeleteOld.Name = "checkBoxDeleteOld";
             this.checkBoxDeleteOld.Size = new System.Drawing.Size(154, 29);
-            this.checkBoxDeleteOld.TabIndex = 3;
+            this.checkBoxDeleteOld.TabIndex = 35;
             this.checkBoxDeleteOld.Text = "Delete old file";
             this.checkBoxDeleteOld.UseVisualStyleBackColor = true;
             // 
@@ -298,7 +298,7 @@ namespace AudioConv
             this.checkBoxSamePath.Margin = new System.Windows.Forms.Padding(0, 4, 0, 4);
             this.checkBoxSamePath.Name = "checkBoxSamePath";
             this.checkBoxSamePath.Size = new System.Drawing.Size(229, 29);
-            this.checkBoxSamePath.TabIndex = 2;
+            this.checkBoxSamePath.TabIndex = 30;
             this.checkBoxSamePath.Text = "Same folder/file-name";
             this.checkBoxSamePath.UseVisualStyleBackColor = true;
             // 
@@ -323,7 +323,7 @@ namespace AudioConv
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.Size = new System.Drawing.Size(643, 27);
-            this.textBoxStatus.TabIndex = 2;
+            this.textBoxStatus.TabIndex = 999;
             this.textBoxStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FormAudioConv
